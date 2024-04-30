@@ -24,7 +24,6 @@ export const CodeEditor = ({scriptInfo}) => {
 	const {id, content, name, owners} = scriptInfo;
 	const [value, setValue] = useState(content);
 
-	
 	const editorRef = useRef(null);
 
 	const [terminalResponse, setTerminalResponse] = useState('');
@@ -33,26 +32,21 @@ export const CodeEditor = ({scriptInfo}) => {
 	const handleEditorDidMount = (editor, monaco) => {
 		editorRef.current = editor;
 
-		const doc = new Y.Doc();
-		const provider = new WebrtcProvider(id, doc);
-		const type = doc.getText('monaco');
-		const binding = new MonacoBinding(
-			type,
-			editorRef.current.getModel(),
-			new Set([editorRef.current]),
-			provider.awareness
-		);
-		console.log(provider.awareness);
+		// const doc = new Y.Doc();
+		// const provider = new WebrtcProvider(id, doc);
+		// const type = doc.getText('monaco');
+		// const binding = new MonacoBinding(
+		// 	type,
+		// 	editorRef.current.getModel(),
+		// 	new Set([editorRef.current]),
+		// 	provider.awareness
+		// );
 	};
-
-	const handleEditorWillMount = e => {
-		console.log('before mount:',e)
-	}
 
 	const runCode = async () => {
 
-
 		const code = editorRef.current.getValue();
+
 
 		try {
 			const { data } = await axios.post(
@@ -87,9 +81,6 @@ export const CodeEditor = ({scriptInfo}) => {
 		});
 	};
 
-	const onChange = (value, event) => {
-		setValue(value);
-	}
 
 	const handleThemeChange = (e) => {
 		const selectedTheme = e.target.value;
@@ -97,7 +88,6 @@ export const CodeEditor = ({scriptInfo}) => {
 	};
 
 	
-
 	return (
 		<>
 			<button onClick={runCode}>Run Code</button>
@@ -111,13 +101,12 @@ export const CodeEditor = ({scriptInfo}) => {
 			<Editor
 				width="100%"
 				height="90vh"
-				defaultLanguage="python"
-				// defaultValue={content}
-				onMount={handleEditorDidMount}
-				// beforeMount={handleEditorWillMount}
 				theme={theme}
+				defaultValue={content}
+				defaultLanguage="python"
+				// onMount={handleEditorDidMount}
+				// beforeMount={handleEditorWillMount}
 				// value={value}
-				// onChange={onChange}
 			/>
 			<Toaster />
 			<Terminal response={terminalResponse} />

@@ -14,16 +14,20 @@ export const PlayGround = () => {
 	const { user } = useContext(AuthContext);
 
 	const { scriptId } = useParams();
-
+	
 	const [scriptInfo, setScriptInfo] = useState({});
+	const [scriptLoaded, setScriptLoaded] = useState(false);
 
 	useEffect(() => {
-		getScriptById(scriptId).then((data) => setScriptInfo(data));
-	}, []);
+		getScriptById(scriptId).then((data) => {
+			setScriptInfo(data);
+			setScriptLoaded(true);
+		});
+	}, [scriptId]);
 
 	return (
 		<div className="playground">
-			<CodeEditor scriptInfo={scriptInfo} />
+			{scriptLoaded && <CodeEditor scriptInfo={scriptInfo} />}
 		</div>
 	);
 };

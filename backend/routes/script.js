@@ -13,8 +13,6 @@ router.get('/:scriptId', async (req, res) => {
 	const { scriptId } = req.params;
 	const script = await Script.findById(scriptId).populate('owners');
 	
-	console.log('[GET]', script.content)
-	
 	res.json(script);
 });
 
