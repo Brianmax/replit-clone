@@ -5,12 +5,12 @@ export const Script = ({id, name}) => {
   const navigate = useNavigate();
 
   const onEdit = () => {
-    navigate(`/editor/${id}`);
+    navigate({pathname: '/script', search: `id=${id}`});
+
   }
   return (
-    <div key={id}>
-      <p>{name}</p>
-      <button onClick={onEdit}>✏️</button>  
+    <div className='script' key={id} onClick={onEdit}>
+      <p className='script__name'>📃 {name}</p>  
     </div>
   )
 }

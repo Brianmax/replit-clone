@@ -13,7 +13,7 @@ router.post('/python', async (req, res) => {
 
 	try {
 		const result = await PythonShell.runString(req.body.code, options);
-		res.json({ result });
+		res.json(result);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}

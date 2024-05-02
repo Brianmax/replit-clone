@@ -20,7 +20,7 @@ export const CopyButton = ({textToCopy, content}) => {
 	return (
 		<div>
 			<CopyToClipboard text={textToCopy} onCopy={onCopyText}>
-				<button>{content}</button>
+				<button className='editor__copy' >{content}</button>
 			</CopyToClipboard>
 			<Toaster />
 		</div>

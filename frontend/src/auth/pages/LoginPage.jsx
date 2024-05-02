@@ -6,14 +6,14 @@ import { useForm } from '../../hooks/useForm';
 export const LoginPage = () => {
 	const navigate = useNavigate();
 	const { username, onInputChange, onResetForm } = useForm({
-		username: "",
+		username: '',
 	});
 
 	const { login } = useContext(AuthContext);
 
 	const onLogin = async () => {
 		const lastPath = localStorage.getItem('lastPath') || '../';
-		if(username.trim() === ""){
+		if (username.trim() === '') {
 			return;
 		}
 		await login(username);
@@ -22,19 +22,23 @@ export const LoginPage = () => {
 	};
 
 	return (
-		<div className="container mt-5">
-			<h1>LoginPage</h1>
-			<hr />
-			<input
-				type="text"
-				placeholder="Ingrese su nombre de usuario"
-				name="username"
-				value={username}
-				onChange={onInputChange}
+		<div className="login">
+			<h1 className="login__title">
+				{'<'}Login{'/>'}
+			</h1>
+			<div className="login__form">
+				<input
+					className="login__input"
+					type="text"
+					placeholder="vs3rn4m3"
+					name="username"
+					value={username}
+					onChange={onInputChange}
 				/>
-			<button className="btn btn-primary" onClick={onLogin}>
-				Login
-			</button>
+				<button className="login__button" onClick={onLogin}>
+					{'>'}
+				</button>
+			</div>
 		</div>
 	);
 };

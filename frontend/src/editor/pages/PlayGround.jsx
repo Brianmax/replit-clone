@@ -1,33 +1,38 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CodeEditor } from '../components/CodeEditor';
 import { AuthContext } from '../../auth/context/AuthContext';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 
 const getScriptById = async (scriptId) => {
 	const { data } = await axios.get(`http://localhost:3000/script/${scriptId}`);
-	console.log('[GET Playground]', data);
 	return data;
 };
 
 export const PlayGround = () => {
 	const { user } = useContext(AuthContext);
+	const [searchParams] = useSearchParams();
 
-	const { scriptId } = useParams();
-	
+	const scriptId = searchParams.get('id');
+
 	const [scriptInfo, setScriptInfo] = useState({});
 	const [scriptLoaded, setScriptLoaded] = useState(false);
-
+	
+	
 	useEffect(() => {
-		getScriptById(scriptId).then((data) => {
-			setScriptInfo(data);
-			setScriptLoaded(true);
-		});
+		if (scriptId) {
+			getScriptById(scriptId).then((data) => {
+				setScriptInfo(data);
+				setScriptLoaded(true);
+			});
+		}
 	}, [scriptId]);
+	
+	console.log("SCRIPT INFO", scriptInfo, scriptLoaded);
 
 	return (
 		<div className="playground">
-			{scriptLoaded && <CodeEditor scriptInfo={scriptInfo} />}
+			{<CodeEditor scriptInfo={scriptInfo} />}
 		</div>
 	);
 };

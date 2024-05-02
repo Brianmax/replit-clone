@@ -4,7 +4,9 @@ import { PrivateRouter } from './PrivateRouter';
 import { PublicRouter } from './PublicRouter';
 import { LoginPage } from '../auth';
 import { EditorRouter } from '../editor/router/EditorRouter';
-
+import { Navbar } from '../ui/components/NavBar';
+import { ScriptsList } from '../scripts';
+import { PlayGround } from '../editor/pages/PlayGround';
 
 export const AppRouter = () => {
 	return (
@@ -18,11 +20,16 @@ export const AppRouter = () => {
 						</PublicRouter>
 					}
 				/>
-        <Route
+				<Route
 					path="/*"
 					element={
 						<PrivateRouter>
-							<EditorRouter />
+							<Navbar />
+							<div className="main">
+								<ScriptsList />
+								<PlayGround />
+							</div>
+							{/* <EditorRouter /> */}
 						</PrivateRouter>
 					}
 				/>

@@ -19,14 +19,13 @@ export const useScript = () => {
 			uid, name,
 		});
 		
-		console.log(scripts);
-
 		const action = {
 			type: types.create,
 			payload: [data, ...scripts],
 		};
 
 		dispatch(action);
+		return data;
 	};
 
 	const handleGetScripts = async (uid) => {

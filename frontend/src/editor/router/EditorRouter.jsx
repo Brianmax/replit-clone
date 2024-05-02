@@ -17,7 +17,7 @@ export const EditorRouter = () => {
         <div>
           <Routes>
             <Route path="" element={<ScriptsList/>} />
-            <Route path="editor/:scriptId" element={<PlayGround  />}/>
+            <Route path="editor/:scriptId" element={<PlayGround/>}/>
           </Routes>
         </div>
     </>
