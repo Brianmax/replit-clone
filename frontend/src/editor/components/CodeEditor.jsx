@@ -113,12 +113,14 @@ export const CodeEditor = React.memo(({ scriptInfo }) => {
 					<option value="hc-black">High Contrast</option>
 				</select> */}
 			</div>
+			{ name ? <p className="editor__filename">{name}</p> : <></>}
 			<div className="editor__terminal">
 				<Editor
 					width="100%"
 					height="100%"
 					options={{
 						minimap: { enabled: false },
+						padding: { top: 10 }
 					}}
 					className="editor"
 					theme="vs-dark"

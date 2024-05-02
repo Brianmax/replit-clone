@@ -28,13 +28,11 @@ export const ScriptsList = () => {
 		handleGetScripts(user.uid).then();
 	}, []);
 
-	const onSubmitForm = (e) => {
-		async (e) => {
-			e.preventDefault();
-			const id = await handleNewScript(user.uid, name);
-			navigate({ pathname: '/script', search: `id=${id}` });
-			onResetForm();
-		};
+	const onSubmitForm = async (e) => {
+		e.preventDefault();
+		const id = await handleNewScript(user.uid, name);
+		navigate({ pathname: '/script', search: `id=${id}` });
+		onResetForm();
 	};
 
 	return (

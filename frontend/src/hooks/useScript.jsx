@@ -24,8 +24,10 @@ export const useScript = () => {
 			payload: [data, ...scripts],
 		};
 
+		localStorage.setItem('scripts', JSON.stringify(scripts));
+
 		dispatch(action);
-		return data;
+		return data.id;
 	};
 
 	const handleGetScripts = async (uid) => {

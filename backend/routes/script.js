@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
 	await user.scripts.push(newScript._id.toString());
 	await user.save();
 
-	res.status(201).json(newScript.id);
+	res.status(201).json(newScript);
 });
 
 // router.post('/create', async (req, res) => {

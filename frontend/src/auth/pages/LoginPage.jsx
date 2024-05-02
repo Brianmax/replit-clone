@@ -12,13 +12,13 @@ export const LoginPage = () => {
 	const { login } = useContext(AuthContext);
 
 	const onLogin = async () => {
-		const lastPath = localStorage.getItem('lastPath') || '../';
+		// const lastPath = localStorage.getItem('lastPath') || '../';
 		if (username.trim() === '') {
 			return;
 		}
 		await login(username);
 
-		navigate(lastPath, { replace: true });
+		// navigate(lastPath, { replace: true });
 	};
 
 	return (
