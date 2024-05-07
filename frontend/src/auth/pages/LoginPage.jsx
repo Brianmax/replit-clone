@@ -34,6 +34,7 @@ export const LoginPage = () => {
 					name="username"
 					value={username}
 					onChange={onInputChange}
+					required
 				/>
 				<button className="login__button" onClick={onLogin}>
 					{'>'}

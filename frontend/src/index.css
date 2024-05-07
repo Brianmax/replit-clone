@@ -77,7 +77,10 @@ body {
 	flex-grow: 1;
 	flex-basis: 90%;
 	font-size: 1rem;
+	color:var(--text-light-color);
 }
+
+
 .login__form{
 	display: flex;
 	justify-content: center;
@@ -163,8 +166,8 @@ body {
 	align-items: center;
 	/* gap: 0.5rem; */
 	margin-bottom: 1rem;
-	overflow: hidden;
-	border-radius: var(--border-radius);
+	/* overflow: hidden; */
+	/* border-radius: var(--border-radius); */
 }
 .script__input {
 	padding: 0.4rem 0.8rem;
@@ -175,6 +178,7 @@ body {
 	flex-basis: 90%;
 	color:var(--text-light-color)
 }
+
 .script__button{
 	flex-grow: 1;
 	flex-basis: 20%;
@@ -226,7 +230,7 @@ body {
 .editor__runcode {
 }
 .editor__buttons {
-	padding: 1rem 0 ;
+	padding: 1rem .5rem;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
