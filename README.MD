@@ -8,7 +8,7 @@ Clon de replit:
 ## Features
 - Crear, editar, borrar y compartir proyectos
 
-## Instalación en Google Cloud
+## Despliegue backend en Google Cloud
 
 Primero debemos de tener en cuenta que necesitamos un cluster GKE en Google Cloud, una vez que tengamos el cluster, debemos de instalar el cliente de Google Cloud en nuestra máquina local.
 
@@ -55,8 +55,6 @@ Una vez que tengamos la imagen de nuestro backend, debemos de subirla a Google C
 ```bash
 docker push <nombre_imagen>
 ```
-
-Lo mismo debemos de hacer con el frontend.
 
 Una vez tengamos las imágenes de nuestro backend y frontend en Google Cloud, debemos de crear un archivo de configuración de Kubernetes.
 
@@ -141,3 +139,131 @@ kubectl apply -f <nombre_archivo>.yaml
 
 ```
 Este comando nos devolverá la dirección IP de nuestro servicio, la cual podemos utilizar para acceder a nuestra aplicación.
+
+
+## Despliegue base de datos en Google Cloud
+
+Creamos un volumen persistente en Google Cloud.
+
+```yaml
+gcloud compute disks create --size=10GB --zone=us-central1-a mongodb-disk
+```
+
+Creamos un archivo de configuración de Kubernetes para nuestro volumen persistente.
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-pv2
+  labels:
+    name: mongo-pv2
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: mongo-data-disk
+    fsType: ext4
+```
+Creamos un archivo claim para nuestro volumen persistente
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pvc2
+  labels:
+    type: local
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 50Gi
+  volumeName: mongo-pv2
+```
+
+Este archivo nos permite hacer un claim de nuestro volumen persistente.
+
+Ejecutamos el siguiente comando para el volumen persistente.
+
+```bash
+kubectl apply -f volume.yaml
+```
+
+Ejecutamos el siguiente comando para el claim.
+
+```bash
+
+kubectl apply -f volume_claim.yaml
+
+```
+
+Creamos un archivo de configuración de Kubernetes para nuestro servicio de base de datos.
+
+```yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo2
+  labels:
+    name: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: mongo2
+  template:
+    metadata:
+      labels:
+        service: mongo2
+    spec:
+      containers:
+      - name: mongo2
+        image: mongo:latest
+        volumeMounts:
+        - name: mongo-volume-mount
+          mountPath: /data/db
+      restartPolicy: Always
+      volumes:
+      - name: mongo-volume-mount
+        persistentVolumeClaim:
+          claimName: mongo-pvc2
+```
+
+Ejecutamos el siguiente comando para el deployment de la base de datos.
+
+```bash
+
+kubectl apply -f mongo_deployment.yaml
+
+```
+
+Creamos un archivo de configuración de Kubernetes para nuestro servicio de base de datos.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+  labels:
+    service: mongo
+spec:
+  selector:
+    service: mongo
+  type: ClusterIP
+  ports:
+  - port: 5432
+```
+
+Ejecutamos el siguiente comando para el servicio de la base de datos.
+
+```bash
+
+kubectl apply -f mongo_service.yaml
+
+```
