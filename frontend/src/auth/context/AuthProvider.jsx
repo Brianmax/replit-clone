@@ -14,14 +14,14 @@ const init = () => {
 };
 
 const getUserByName = async (username) => {
-	const { data } = await axios.get('http://localhost:3000/user/login', {
+	const { data } = await axios.get('http://34.94.130.143:3000/user/login', {
 		params: { username },
 	});
 	return data;
 };
 
 const registerUser = async (username) => {
-	const { data } = await axios.post('http://localhost:3000/user/register', {
+	const { data } = await axios.post('http://34.94.130.143:3000/user/register', {
 		username,
 	});
 	return data;

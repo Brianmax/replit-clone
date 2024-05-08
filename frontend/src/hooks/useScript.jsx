@@ -15,7 +15,7 @@ export const useScript = () => {
 	}, [scripts]);
 
 	const handleNewScript = async (uid, name) => {
-		const { data } = await axios.post('http://localhost:3000/script', {
+		const { data } = await axios.post('http://34.94.126.203:3000/script', {
 			uid, name,
 		});
 		
@@ -31,7 +31,7 @@ export const useScript = () => {
 	};
 
 	const handleGetScripts = async (uid) => {
-		const { data } = await axios.get('http://localhost:3000/user/scripts', {
+		const { data } = await axios.get('http://34.94.130.143:3000/user/scripts', {
 			params: {uid},
 		});
 
@@ -44,7 +44,7 @@ export const useScript = () => {
 	};
 
 	const getScriptById = async (id) => {
-		const {data} = await axios.get('http://localhost:3000/user/scripts', {
+		const {data} = await axios.get('http://34.94.130.143:3000/user/scripts', {
 			params:{id}
 		});
 

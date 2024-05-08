@@ -10,7 +10,7 @@ import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
 loader.config({ monaco });
 
 const saveScript = async (scriptId, content) => {
-	const { data } = await axios.put(`http://localhost:3000/script/${scriptId}`, {
+	const { data } = await axios.put(`http://34.94.130.143:3000/script/${scriptId}`, {
 		content,
 	});
 
@@ -60,7 +60,7 @@ export const CodeEditor = React.memo(({ scriptInfo }) => {
 		const code = editorRef.current.getValue();
 		try {
 			const { data } = await axios.post(
-				'http://localhost:3000/executor/python',
+				'http://34.94.130.143:3000/executor/python',
 				{
 					code,
 					name,

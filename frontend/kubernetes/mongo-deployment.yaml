@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo2
+  labels:
+    name: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: mongo2
+  template:
+    metadata:
+      labels:
+        service: mongo2
+    spec:
+      containers:
+      - name: mongo2
+        image: mongo:latest
+        volumeMounts:
+        - name: mongo-volume-mount
+          mountPath: /data/db
+      restartPolicy: Always
+      volumes:
+      - name: mongo-volume-mount
+        persistentVolumeClaim:
+          claimName: mongo-pvc2

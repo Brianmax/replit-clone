@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front2
+  labels:
+    name: front2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front2
+  template:
+    metadata:
+      labels:
+        app: front2
+    spec:
+      containers:
+      - name: front2
+        image: us-east1-docker.pkg.dev/unified-hull-414821/final-docker/final-frontend-docker
+        env:
+        - name: NODE_ENV
+          value: "development"
+        - name: PORT
+          value: "8080"
+      restartPolicy: Always
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: front2
+  labels:
+    name: front2
+spec:
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: front2

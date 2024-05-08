@@ -5,7 +5,7 @@ import { ScriptsList } from '../../scripts'
 import { PlayGround } from '../pages/PlayGround'
 
 const getScriptById = async (scriptId) => {
-	const { data } = await axios.get(`http://localhost:3000/script/${scriptId}`);
+	const { data } = await axios.get(`http://34.94.126.203:3000/script/${scriptId}`);
 	console.log("[GET]", data)
 	return data;
 };

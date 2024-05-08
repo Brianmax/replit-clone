@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: front2
+  labels:
+    service: front2
+spec:
+  selector:
+    app: front2
+  type: LoadBalancer
+  ports:
+    - port: 8080

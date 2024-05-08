@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 
 const getScriptById = async (scriptId) => {
-	const { data } = await axios.get(`http://localhost:3000/script/${scriptId}`);
+	const { data } = await axios.get(`http://34.94.126.203:3000/script/${scriptId}`);
 	return data;
 };
 

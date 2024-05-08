@@ -3,7 +3,7 @@ mongoose.set('strictQuery', true);
 
 const dbConnection = async () => {
   try{
-    await mongoose.connect(process.env.MONGODB_CNN, {});
+    await mongoose.connect('mongodb://mongo:27017/');
     console.log('Success: DB connected');
   } catch(error){
     console.log(error);
