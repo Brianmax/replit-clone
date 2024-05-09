@@ -9,4 +9,4 @@ spec:
     service: mongo
   type: ClusterIP
   ports:
-  - port: 5432
+  - port: 27017
